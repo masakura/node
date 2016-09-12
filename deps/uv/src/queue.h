@@ -51,6 +51,7 @@ typedef void *QUEUE[2];
 
 #define QUEUE_ADD(h, n)                                                       \
   do {                                                                        \
+    printf("QUEUE_ADD");                                                      \
     QUEUE_PREV_NEXT(h) = QUEUE_NEXT(n);                                       \
     QUEUE_NEXT_PREV(n) = QUEUE_PREV(h);                                       \
     QUEUE_PREV(h) = QUEUE_PREV(n);                                            \
@@ -71,6 +72,7 @@ typedef void *QUEUE[2];
 
 #define QUEUE_MOVE(h, n)                                                      \
   do {                                                                        \
+    printf("QUEUE_MOVE h => %x, n => %x\n", h, n);		      \
     if (QUEUE_EMPTY(h))                                                       \
       QUEUE_INIT(n);                                                          \
     else {                                                                    \
@@ -91,6 +93,7 @@ typedef void *QUEUE[2];
 
 #define QUEUE_INSERT_TAIL(h, q)                                               \
   do {                                                                        \
+    printf("QUEUE_INSERT_TAIL h => %x, q => %x\n", h, q);		      \
     QUEUE_NEXT(q) = (h);                                                      \
     QUEUE_PREV(q) = QUEUE_PREV(h);                                            \
     QUEUE_PREV_NEXT(q) = (q);                                                 \

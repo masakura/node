@@ -1,0 +1,2 @@
+console.log('abcd');
+setTimeout(() => console.log('abcd'), 1000);

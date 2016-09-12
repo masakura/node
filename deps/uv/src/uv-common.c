@@ -349,6 +349,8 @@ void uv_walk(uv_loop_t* loop, uv_walk_cb walk_cb, void* arg) {
   QUEUE* q;
   uv_handle_t* h;
 
+  printf("uv_walk\n");
+
   QUEUE_MOVE(&loop->handle_queue, &queue);
   while (!QUEUE_EMPTY(&queue)) {
     q = QUEUE_HEAD(&queue);

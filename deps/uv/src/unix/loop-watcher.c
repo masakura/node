@@ -22,7 +22,7 @@
 #include "uv.h"
 #include "internal.h"
 
-#define UV_LOOP_WATCHER_DEFINE(name, type)                                    \
+#define UV_LOOP_WATCHER_DEFINE(name, type, s)                                 \
   int uv_##name##_init(uv_loop_t* loop, uv_##name##_t* handle) {              \
     uv__handle_init(loop, (uv_handle_t*)handle, UV_##type);                   \
     handle->name##_cb = NULL;                                                 \
@@ -49,8 +49,10 @@
     uv_##name##_t* h;                                                         \
     QUEUE queue;                                                              \
     QUEUE* q;                                                                 \
+    printf("uv__run_%s\n", s);                                                \
     QUEUE_MOVE(&loop->name##_handles, &queue);                                \
     while (!QUEUE_EMPTY(&queue)) {                                            \
+      printf("Not empty %s\n", s);                                            \
       q = QUEUE_HEAD(&queue);                                                 \
       h = QUEUE_DATA(q, uv_##name##_t, queue);                                \
       QUEUE_REMOVE(q);                                                        \
@@ -63,6 +65,6 @@
     uv_##name##_stop(handle);                                                 \
   }
 
-UV_LOOP_WATCHER_DEFINE(prepare, PREPARE)
-UV_LOOP_WATCHER_DEFINE(check, CHECK)
-UV_LOOP_WATCHER_DEFINE(idle, IDLE)
+UV_LOOP_WATCHER_DEFINE(prepare, PREPARE, "prepare")
+UV_LOOP_WATCHER_DEFINE(check, CHECK, "check")
+UV_LOOP_WATCHER_DEFINE(idle, IDLE, "idle")

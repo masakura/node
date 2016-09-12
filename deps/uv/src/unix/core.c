@@ -336,6 +336,8 @@ int uv_run(uv_loop_t* loop, uv_run_mode mode) {
   int r;
   int ran_pending;
 
+  printf("uv_run\n");
+
   r = uv__loop_alive(loop);
   if (!r)
     uv__update_time(loop);
@@ -752,12 +754,15 @@ static int uv__run_pending(uv_loop_t* loop) {
   QUEUE pq;
   uv__io_t* w;
 
+  printf("uv__run_pending\n");
+
   if (QUEUE_EMPTY(&loop->pending_queue))
     return 0;
 
   QUEUE_MOVE(&loop->pending_queue, &pq);
 
   while (!QUEUE_EMPTY(&pq)) {
+    printf("Not empty pending\n");
     q = QUEUE_HEAD(&pq);
     QUEUE_REMOVE(q);
     QUEUE_INIT(q);

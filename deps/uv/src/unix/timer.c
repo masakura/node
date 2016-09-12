@@ -58,6 +58,9 @@ int uv_timer_init(uv_loop_t* loop, uv_timer_t* handle) {
   return 0;
 }
 
+int uv_masakura() {
+  return 0;
+}
 
 int uv_timer_start(uv_timer_t* handle,
                    uv_timer_cb cb,
@@ -68,6 +71,8 @@ int uv_timer_start(uv_timer_t* handle,
   if (cb == NULL)
     return -EINVAL;
 
+  printf("uv_timer_start timeout => %d, repeat => %d\n", timeout, repeat);
+  
   if (uv__is_active(handle))
     uv_timer_stop(handle);
 
@@ -151,6 +156,8 @@ void uv__run_timers(uv_loop_t* loop) {
   struct heap_node* heap_node;
   uv_timer_t* handle;
 
+  printf("uv__run_times\n");
+
   for (;;) {
     heap_node = heap_min((struct heap*) &loop->timer_heap);
     if (heap_node == NULL)
@@ -162,6 +169,7 @@ void uv__run_timers(uv_loop_t* loop) {
 
     uv_timer_stop(handle);
     uv_timer_again(handle);
+    printf("timer_cb\n");
     handle->timer_cb(handle);
   }
 }
