@@ -1,1 +1,1 @@
-setTimeout(() => console.log('abcd'), 0);
+setTimeout(() => {}, 0);

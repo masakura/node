@@ -96,6 +96,8 @@ int uv_timer_start(uv_timer_t* handle,
 
 
 int uv_timer_stop(uv_timer_t* handle) {
+  printf("uv_timer_stop\n");
+  
   if (!uv__is_active(handle))
     return 0;
 
@@ -109,6 +111,8 @@ int uv_timer_stop(uv_timer_t* handle) {
 
 
 int uv_timer_again(uv_timer_t* handle) {
+  printf("uv_timer_again\n");
+
   if (handle->timer_cb == NULL)
     return -EINVAL;
 

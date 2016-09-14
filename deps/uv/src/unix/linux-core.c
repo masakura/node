@@ -196,7 +196,7 @@ void uv__io_poll(uv_loop_t* loop, int timeout) {
   int op;
   int i;
 
-  printf("uv__io_pool\n");
+  printf("uv__io_poll\n");
 
   if (loop->nfds == 0) {
     assert(QUEUE_EMPTY(&loop->watcher_queue));
@@ -204,7 +204,7 @@ void uv__io_poll(uv_loop_t* loop, int timeout) {
   }
 
   while (!QUEUE_EMPTY(&loop->watcher_queue)) {
-    printf("Not empty io_pool\n");
+    printf("Not empty io_poll\n");
     q = QUEUE_HEAD(&loop->watcher_queue);
     QUEUE_REMOVE(q);
     QUEUE_INIT(q);

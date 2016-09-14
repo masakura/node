@@ -336,7 +336,7 @@ int uv_run(uv_loop_t* loop, uv_run_mode mode) {
   int r;
   int ran_pending;
 
-  printf("uv_run\n");
+  printf("uv_run => %x\n", &loop->watcher_queue);
 
   r = uv__loop_alive(loop);
   if (!r)
@@ -348,6 +348,8 @@ int uv_run(uv_loop_t* loop, uv_run_mode mode) {
     ran_pending = uv__run_pending(loop);
     uv__run_idle(loop);
     uv__run_prepare(loop);
+
+    printf("uv_run Not empty queue\n");
 
     timeout = 0;
     if ((mode == UV_RUN_ONCE && !ran_pending) || mode == UV_RUN_DEFAULT)

@@ -40,10 +40,11 @@ typedef void *QUEUE[2];
   ((const QUEUE *) (q) == (const QUEUE *) QUEUE_NEXT(q))
 
 #define QUEUE_HEAD(q)                                                         \
-  (QUEUE_NEXT(q))
+  (printf("QUEUE_HEAD q => %x\n", q), QUEUE_NEXT(q))
 
 #define QUEUE_INIT(q)                                                         \
   do {                                                                        \
+    printf("QUEUE_INIT q => %x\n", q);		      \
     QUEUE_NEXT(q) = (q);                                                      \
     QUEUE_PREV(q) = (q);                                                      \
   }                                                                           \
@@ -103,6 +104,7 @@ typedef void *QUEUE[2];
 
 #define QUEUE_REMOVE(q)                                                       \
   do {                                                                        \
+    printf("QUEUE_REMOVE q => %x\n", q);		      \
     QUEUE_PREV_NEXT(q) = QUEUE_NEXT(q);                                       \
     QUEUE_NEXT_PREV(q) = QUEUE_PREV(q);                                       \
   }                                                                           \

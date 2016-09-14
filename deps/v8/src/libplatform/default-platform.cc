@@ -110,6 +110,8 @@ Task* DefaultPlatform::PopTaskInMainThreadDelayedQueue(v8::Isolate* isolate) {
 bool DefaultPlatform::PumpMessageLoop(v8::Isolate* isolate) {
   Task* task = NULL;
   {
+    printf("PumpMessageLoop isolate => %x\n", isolate);
+
     base::LockGuard<base::Mutex> guard(&lock_);
 
     // Move delayed tasks that hit their deadline to the main queue.
@@ -125,6 +127,7 @@ bool DefaultPlatform::PumpMessageLoop(v8::Isolate* isolate) {
       return false;
     }
   }
+  printf("task->Run task => %x\n", task);
   task->Run();
   delete task;
   return true;
@@ -140,6 +143,7 @@ void DefaultPlatform::CallOnBackgroundThread(Task *task,
 
 void DefaultPlatform::CallOnForegroundThread(v8::Isolate* isolate, Task* task) {
   base::LockGuard<base::Mutex> guard(&lock_);
+  printf("CallOnForegroundThread isolate => %x, task => %x\n", isolate, task);
   main_thread_queue_[isolate].push(task);
 }
 
