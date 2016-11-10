@@ -196,7 +196,7 @@ void uv__io_poll(uv_loop_t* loop, int timeout) {
   int op;
   int i;
 
-  printf("uv__io_poll\n");
+  printf("uv__io_poll timeout => %d\n", timeout);
 
   if (loop->nfds == 0) {
     assert(QUEUE_EMPTY(&loop->watcher_queue));
@@ -204,7 +204,7 @@ void uv__io_poll(uv_loop_t* loop, int timeout) {
   }
 
   while (!QUEUE_EMPTY(&loop->watcher_queue)) {
-    printf("Not empty io_poll\n");
+printf("Not empty io_poll\n");
     q = QUEUE_HEAD(&loop->watcher_queue);
     QUEUE_REMOVE(q);
     QUEUE_INIT(q);
@@ -221,6 +221,8 @@ void uv__io_poll(uv_loop_t* loop, int timeout) {
       op = UV__EPOLL_CTL_ADD;
     else
       op = UV__EPOLL_CTL_MOD;
+
+printf("op => %d, ADD => %d, MOD => %d\n", op, UV__EPOLL_CTL_ADD, UV__EPOLL_CTL_MOD);
 
     /* XXX Future optimization: do EPOLL_CTL_MOD lazily if we stop watching
      * events, skip the syscall and squelch the events after epoll_wait().
@@ -426,6 +428,8 @@ uint64_t uv__hrtime(uv_clocktype_t type) {
   static clock_t fast_clock_id = -1;
   struct timespec t;
   clock_t clock_id;
+
+printf("uv__update_time\n");
 
   /* Prefer CLOCK_MONOTONIC_COARSE if available but only when it has
    * millisecond granularity or better.  CLOCK_MONOTONIC_COARSE is

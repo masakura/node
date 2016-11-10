@@ -174,6 +174,8 @@ static void poll_cb(uv_fs_t* req) {
   struct poll_ctx* ctx;
   uint64_t interval;
 
+printf("poll_cb");
+
   ctx = container_of(req, struct poll_ctx, fs_req);
 
   if (ctx->parent_handle == NULL) { /* handle has been stopped or closed */

@@ -1,3 +1,3 @@
 const fs = require('fs');
 
-fs.readFile(__dirname + '/file.js', 'utf8', () => {});
+fs.readFile(__dirname + '/../out/Release/node', 'utf8', () => { console.log('read'); });

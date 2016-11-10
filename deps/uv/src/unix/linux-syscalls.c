@@ -318,6 +318,7 @@ int uv__epoll_wait(int epfd,
                    int timeout) {
 #if defined(__NR_epoll_wait)
   int result;
+printf("uv_epoll_wait timeout => %d\n", timeout);
   result = syscall(__NR_epoll_wait, epfd, events, nevents, timeout);
 #if MSAN_ACTIVE
   if (result > 0)
@@ -337,6 +338,7 @@ int uv__epoll_pwait(int epfd,
                     uint64_t sigmask) {
 #if defined(__NR_epoll_pwait)
   int result;
+printf("uv_epoll_pwait timeout => %d\n", timeout);
   result = syscall(__NR_epoll_pwait,
                    epfd,
                    events,
